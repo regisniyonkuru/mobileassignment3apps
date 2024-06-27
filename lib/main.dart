@@ -12,7 +12,188 @@ class CalculatorApp extends StatelessWidget {
         primaryColor: Colors.deepPurple,
         scaffoldBackgroundColor: Colors.black,
       ),
-      home: CalculatorScreen(),
+      home: MainScreen(),
+    );
+  }
+}
+
+class MainScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('App Navigation'),
+          backgroundColor: Colors.deepPurple,
+          bottom: TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.login), text: 'Sign In'),
+              Tab(icon: Icon(Icons.app_registration), text: 'Sign Up'),
+              Tab(icon: Icon(Icons.calculate), text: 'Calculator'),
+            ],
+            indicatorColor: Colors.white,
+            unselectedLabelColor: Colors.grey,
+            labelColor: Colors.white,
+          ),
+        ),
+        drawer: AppDrawer(),
+        body: TabBarView(
+          children: [
+            SignInScreen(),
+            SignUpScreen(),
+            CalculatorScreen(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AppDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: <Widget>[
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.deepPurple,
+            ),
+            child: Text(
+              'Navigation',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+              ),
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.login),
+            title: Text('Sign In'),
+            onTap: () {
+              Navigator.pop(context);
+              DefaultTabController.of(context)?.animateTo(0);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.app_registration),
+            title: Text('Sign Up'),
+            onTap: () {
+              Navigator.pop(context);
+              DefaultTabController.of(context)?.animateTo(1);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.calculate),
+            title: Text('Calculator'),
+            onTap: () {
+              Navigator.pop(context);
+              DefaultTabController.of(context)?.animateTo(2);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SignInScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Sign In',
+            style: TextStyle(fontSize: 24, color: Colors.white),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: 'Email',
+                labelStyle: TextStyle(color: Colors.white),
+                border: OutlineInputBorder(),
+              ),
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: 'Password',
+                labelStyle: TextStyle(color: Colors.white),
+                border: OutlineInputBorder(),
+              ),
+              obscureText: true,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Sign In'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SignUpScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Sign Up',
+            style: TextStyle(fontSize: 24, color: Colors.white),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: 'Email',
+                labelStyle: TextStyle(color: Colors.white),
+                border: OutlineInputBorder(),
+              ),
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: 'Password',
+                labelStyle: TextStyle(color: Colors.white),
+                border: OutlineInputBorder(),
+              ),
+              obscureText: true,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: 'Confirm Password',
+                labelStyle: TextStyle(color: Colors.white),
+                border: OutlineInputBorder(),
+              ),
+              obscureText: true,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Sign Up'),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -140,7 +321,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           DisplayArea(display: _expression),
           SizedBox(height: 20),
           DisplayArea(display: _display),
-          SizedBox(height: 280),
           Expanded(
             flex: 4,
             child: Column(
